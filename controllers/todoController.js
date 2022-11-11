@@ -1,5 +1,3 @@
-import { response } from 'express';
-import {v4 as uuidv4} from 'uuid';
 import todoModel from '../models/todo.js';
 
 const controller = {};
@@ -29,6 +27,39 @@ controller.listTodos = async (req,res)=>{
 controller.getTodo = async (req,res)=>{
     const id = req.params.id
     const todo = await todoModel.findById({_id: id})
+
+    try{
+        res.send(todo);
+    }catch(err){
+        res.status(500).send(err);
+    }
+};
+
+controller.deleteTodo = async (req,res)=>{
+    const id = req.params.id;
+    const todo = await todoModel.findByIdAndDelete({_id: id});
+
+    try{
+        res.send({"detail": "Todo has been deleted"});
+    }catch(err){
+        res.status(500).send(err);
+    }
+};
+
+controller.updateTodo = async (req,res)=>{
+    const id = req.params.id;
+    const todo = await todoModel.findByIdAndUpdate({_id: id}, req.body, {new: true});
+
+    try{
+        res.send(todo);
+    }catch(err){
+        res.status(500).send(err);
+    }
+};
+
+controller.completeTodo = async (req,res)=>{
+    const id = req.params.id;
+    const todo = await todoModel.findByIdAndUpdate({_id: id}, {"completed": true}, {new: true});
 
     try{
         res.send(todo);

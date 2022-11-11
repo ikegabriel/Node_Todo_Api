@@ -7,13 +7,6 @@ const app = express();
 const PORT = 4000;
 
 
-mongoose.connect('mongodb://localhost:27017/usersdb',{
-    useNewurlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology:true
-}
-);
-
 app.use(bodyParser.json());
 app.use('/todo', todoRoutes)
 

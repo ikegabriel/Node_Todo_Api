@@ -14,6 +14,11 @@ const todoSchema = new mongoose.Schema({
     description:{
         type: String,
         requires: true
+    },
+    completed:{
+        type: Boolean,
+        requires: false,
+        default: false
     }
 }, {timestamps: true});
 
